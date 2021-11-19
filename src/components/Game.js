@@ -12,6 +12,7 @@ class Game extends React.Component {
           }],
           stepNumber: 0,
           xIsNext: true,
+          moves:[]
         };
     }
 
@@ -29,6 +30,7 @@ class Game extends React.Component {
             }]),
             xIsNext: ! this.state.xIsNext,
             stepNumber: history.length,
+            moves: this.state.moves.slice().concat([i])
           });
     }
 
@@ -36,6 +38,7 @@ class Game extends React.Component {
         this.setState({
           stepNumber: step,
           xIsNext: (step % 2) === 0,
+          moves: this.state.moves.slice(0, step)
         });
     }
 
@@ -67,7 +70,8 @@ class Game extends React.Component {
             <Board
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
-          />
+            lastMove={this.state.moves[this.state.moves.length-1]}
+            />
           </div>
           <div className="game-info">
             <div>{ status }</div>
